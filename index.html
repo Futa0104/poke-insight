@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Poke Insight report index">
+  <title>Poke Insight</title>
+  <style>
+    :root {
+      /* Milotic-inspired fallback palette. reports.json can override these. */
+      --primary: #72c9c5;
+      --secondary: #e58ca0;
+      --accent: #4f8eaf;
+      --detail: #b95063;
+      --surface: #fffdfa;
+      --background: #f4faf9;
+      --cream: #f7ead0;
+      --text: #213745;
+      --muted: #69808b;
+      --border: #d8e7e5;
+      --shadow: rgba(49, 91, 105, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 32rem),
+        radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--secondary) 18%, transparent), transparent 28rem),
+        var(--background);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(100% - 32px, 980px);
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 54px);
+      border: 1px solid color-mix(in srgb, var(--primary) 38%, var(--border));
+      border-radius: 28px;
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--surface) 88%, var(--cream)),
+        color-mix(in srgb, var(--surface) 88%, var(--primary)) 56%,
+        color-mix(in srgb, var(--surface) 88%, var(--secondary)));
+      box-shadow: 0 20px 60px var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -80px;
+      bottom: -100px;
+      border: 28px solid color-mix(in srgb, var(--secondary) 35%, transparent);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 18%, white);
+      color: color-mix(in srgb, var(--accent) 82%, var(--text));
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 7vw, 64px);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 2vw, 18px);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 42px 2px 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    #report-count {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reports {
+      display: grid;
+      gap: 14px;
+    }
+
+    .report-card {
+      display: grid;
+      grid-template-columns: 108px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--surface) 94%, var(--primary));
+      box-shadow: 0 8px 24px rgba(49, 91, 105, .06);
+      text-decoration: none;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .report-card:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--primary) 64%, var(--border));
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+
+    .date {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .report-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .description {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .arrow {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--secondary) 17%, white);
+      color: var(--detail);
+      font-weight: 700;
+    }
+
+    .state {
+      padding: 28px;
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255,255,255,.5);
+    }
+
+    footer {
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 22px, 980px); padding-top: 18px; }
+      .hero { border-radius: 22px; }
+      .report-card { grid-template-columns: 1fr auto; gap: 8px 12px; }
+      .date { grid-column: 1 / -1; }
+      .description { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div class="eyebrow" id="theme-name">Milotic theme</div>
+      <h1>Poke Insight</h1>
+      <p class="lead">HTMLレポートをまとめて公開するためのインデックスです。新しいレポートを <code>reports/</code> に追加し、<code>reports.json</code> に登録すると、この一覧へ自動的に追加されます。</p>
+      <div class="meta-row">
+        <span class="chip">GitHub Pages</span>
+        <span class="chip">reports.json driven</span>
+        <span class="chip">newest first</span>
+      </div>
+    </header>
+
+    <div class="section-head">
+      <h2>Reports</h2>
+      <span id="report-count">読み込み中...</span>
+    </div>
+
+    <section id="reports" class="reports" aria-live="polite">
+      <div class="state">レポート一覧を読み込んでいます...</div>
+    </section>
+
+    <footer>Poke Insight</footer>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const reportsElement = document.querySelector('#reports');
+    const countElement = document.querySelector('#report-count');
+    const themeNameElement = document.querySelector('#theme-name');
+
+    function applyTheme(theme = {}) {
+      const colors = theme.colors || {};
+      const allowed = ['primary', 'secondary', 'accent', 'detail', 'surface', 'background', 'cream', 'text', 'muted', 'border'];
+
+      allowed.forEach((name) => {
+        if (typeof colors[name] === 'string' && colors[name].trim()) {
+          root.style.setProperty(`--${name}`, colors[name]);
+        }
+      });
+
+      if (theme.name) {
+        themeNameElement.textContent = `${theme.name} theme`;
+      }
+    }
+
+    function renderReports(reports = []) {
+      const sorted = [...reports].sort((a, b) => {
+        const byDate = String(b.date || '').localeCompare(String(a.date || ''));
+        if (byDate !== 0) return byDate;
+        return String(b.file || '').localeCompare(String(a.file || ''));
+      });
+
+      countElement.textContent = `${sorted.length} report${sorted.length === 1 ? '' : 's'}`;
+      reportsElement.replaceChildren();
+
+      if (!sorted.length) {
+        const empty = document.createElement('div');
+        empty.className = 'state';
+        empty.textContent = 'まだレポートはありません。';
+        reportsElement.append(empty);
+        return;
+      }
+
+      sorted.forEach((report) => {
+        const card = document.createElement('a');
+        card.className = 'report-card';
+        card.href = `reports/${report.file}`;
+
+        const date = document.createElement('div');
+        date.className = 'date';
+        date.textContent = report.date || '—';
+
+        const body = document.createElement('div');
+        const title = document.createElement('h3');
+        title.className = 'report-title';
+        title.textContent = report.title || report.file;
+        body.append(title);
+
+        if (report.description) {
+          const description = document.createElement('p');
+          description.className = 'description';
+          description.textContent = report.description;
+          body.append(description);
+        }
+
+        const arrow = document.createElement('span');
+        arrow.className = 'arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '→';
+
+        card.append(date, body, arrow);
+        reportsElement.append(card);
+      });
+    }
+
+    fetch('./reports.json', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        applyTheme(data.theme);
+        renderReports(Array.isArray(data.reports) ? data.reports : []);
+      })
+      .catch((error) => {
+        console.error(error);
+        countElement.textContent = 'load error';
+        reportsElement.innerHTML = '<div class="state">reports.json を読み込めませんでした。</div>';
+      });
+  </script>
+</body>
+</html>
