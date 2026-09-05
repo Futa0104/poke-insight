@@ -17,6 +17,12 @@
   "reports": [
     {
       "date": "2026-09-05",
+      "title": "ポケモン環境週間レポート（シングル）",
+      "file": "2026-09-05-pokemon-weekly-single.html",
+      "description": "壁・あくび・後攻ボルトチェンでエースを安全着地させる展開が今週の中心。メガギャラドス、ガブリアス、メガミミロップが複数の高成績記事で存在感を見せました。"
+    },
+    {
+      "date": "2026-09-05",
       "title": "Sample Report",
       "file": "2026-09-05-sample-report.html",
       "description": "GitHub Pages と reports.json 連携確認用のサンプルです。"
