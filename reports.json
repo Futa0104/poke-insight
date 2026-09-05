@@ -1,0 +1,31 @@
+{
+  "theme": {
+    "name": "Milotic",
+    "colors": {
+      "primary": "#72c9c5",
+      "secondary": "#e58ca0",
+      "accent": "#4f8eaf",
+      "detail": "#b95063",
+      "surface": "#fffdfa",
+      "background": "#f4faf9",
+      "cream": "#f7ead0",
+      "text": "#213745",
+      "muted": "#69808b",
+      "border": "#d8e7e5"
+    }
+  },
+  "reports": [
+    {
+      "date": "2026-09-05",
+      "title": "Sample Report",
+      "file": "2026-09-05-sample-report.html",
+      "description": "GitHub Pages と reports.json 連携確認用のサンプルです。"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "Theme Preview",
+      "file": "2026-09-01-theme-preview.html",
+      "description": "一覧のソートと複数レポート表示を確認するためのサンプルです。"
+    }
+  ]
+}
