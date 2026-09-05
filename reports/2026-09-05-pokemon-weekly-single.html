@@ -5,17 +5,68 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>ポケモン環境週間レポート（シングル） 2026-09-05</title>
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#dfe5ee;--accent:#4b63d3;--accent2:#7a4bd3;--good:#16794b;--warn:#9a6700}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;line-height:1.75}
-main{max-width:1120px;margin:auto;padding:24px} header{padding:30px;border-radius:22px;background:linear-gradient(135deg,#273b8f,#6840a8);color:white;box-shadow:0 14px 35px #26356d30}
-h1{margin:0 0 6px;font-size:clamp(1.7rem,4vw,2.6rem)} h2{margin-top:42px;border-left:7px solid var(--accent);padding-left:12px} h3{line-height:1.45}
-a{color:#334fc0} header a{color:white} .sub{opacity:.9} .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} .two{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 16px #27365c0c}
-.kpi strong{display:block;font-size:1.7rem} .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.9rem;flex-wrap:wrap}
-.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700} .single{background:#e9edff;color:#3348aa} .fact{background:#e7f7ef;color:#146c43} .unknown{background:#fff2d8;color:#865b00}
-.why{border-left:4px solid #f0ad2c;padding-left:11px;background:#fff9ec} .notice{border:1px solid #e7c56c;background:#fff9e7;padding:14px 17px;border-radius:12px} .trend{font-size:1.1rem;font-weight:700}
+:root{
+  --primary:#72c9c5;
+  --secondary:#e58ca0;
+  --accent:#4f8eaf;
+  --detail:#b95063;
+  --surface:#fffdfa;
+  --background:#f4faf9;
+  --cream:#f7ead0;
+  --text:#213745;
+  --muted:#69808b;
+  --border:#d8e7e5;
+  --shadow:rgba(49,91,105,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 8% 0%,color-mix(in srgb,var(--primary) 18%,transparent),transparent 34rem),
+    radial-gradient(circle at 92% 6%,color-mix(in srgb,var(--secondary) 15%,transparent),transparent 30rem),
+    var(--background);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  line-height:1.75;
+}
+main{max-width:1120px;margin:auto;padding:24px}
+header{
+  padding:30px;
+  border:1px solid color-mix(in srgb,var(--primary) 42%,var(--border));
+  border-radius:22px;
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--surface) 88%,var(--cream)),
+    color-mix(in srgb,var(--surface) 82%,var(--primary)) 56%,
+    color-mix(in srgb,var(--surface) 84%,var(--secondary)));
+  color:var(--text);
+  box-shadow:0 14px 35px var(--shadow);
+}
+h1{margin:0 0 6px;font-size:clamp(1.7rem,4vw,2.6rem)}
+h2{margin-top:42px;border-left:7px solid var(--accent);padding-left:12px}
+h3{line-height:1.45}
+a{color:var(--accent)}
+header a{color:var(--accent)}
+.sub{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:19px;
+  box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 8%,transparent);
+}
+.kpi strong{display:block;font-size:1.7rem;color:var(--detail)}
+.meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.9rem;flex-wrap:wrap}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700}
+.single{background:color-mix(in srgb,var(--primary) 20%,var(--surface));color:color-mix(in srgb,var(--accent) 88%,var(--text))}
+.fact{background:color-mix(in srgb,var(--primary) 18%,var(--surface));color:var(--accent)}
+.unknown{background:color-mix(in srgb,var(--cream) 78%,var(--surface));color:var(--detail)}
+.why{border-left:4px solid var(--secondary);padding-left:11px;background:color-mix(in srgb,var(--cream) 55%,var(--surface))}
+.notice{border:1px solid color-mix(in srgb,var(--secondary) 50%,var(--border));background:color-mix(in srgb,var(--cream) 62%,var(--surface));padding:14px 17px;border-radius:12px}
+.trend{font-size:1.1rem;font-weight:700}
 ul{padding-left:1.25rem}
-@media(max-width:800px){.grid,.two{grid-template-columns:1fr} main{padding:12px} header{padding:22px}}
+@media(max-width:800px){.grid,.two{grid-template-columns:1fr}main{padding:12px}header{padding:22px}}
 </style>
 </head>
 <body><main>
